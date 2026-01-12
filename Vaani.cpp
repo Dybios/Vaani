@@ -25,7 +25,7 @@ constexpr const wchar_t* VAANIAPO_GUID = L"{B55E5A29-FE1E-4991-8079-4D0FE02015AF
 constexpr const wchar_t* COMPOSITESFX_GUID = L"{d04e05a6-594b-4fb6-a80d-01af5eed7d1d},13";
 constexpr const wchar_t* COMPOSITEOSFX_GUID = L"{d04e05a6-594b-4fb6-a80d-01af5eed7d1d},19";
 constexpr const wchar_t* BACKUP_REGPATH = L"SOFTWARE\\Vaani\\";
-constexpr const char* DLL_NAME = "RNNoiseAPO.dll";
+constexpr const char* DLL_NAME = "VaaniAPO.dll";
 constexpr const wchar_t* disableAudioDgPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Audio";
 constexpr const wchar_t* disableAudioDgKey = L"DisableProtectedAudioDG";
 
