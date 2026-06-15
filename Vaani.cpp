@@ -1068,9 +1068,10 @@ bool SetApoProcessingState(bool bEnable) {
     HKEY hKey;
 
     // Open key with write permissions
-    LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, BACKUP_REGPATH, 0, KEY_SET_VALUE, &hKey);
+    LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, BACKUP_REGPATH, 0, KEY_SET_VALUE, &hKey);
     if (result != ERROR_SUCCESS) {
         std::wcout << "Vaani not installed. Please install Vaani before running this command." << std::endl;
+        system("pause");
         return false;
     }
 
@@ -1090,6 +1091,7 @@ int main() {
     switch (choice) {
     case 1:
         Install();
+        SetApoProcessingState(true);
         break;
     case 2:
         Uninstall();
