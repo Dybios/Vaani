@@ -29,6 +29,8 @@ constexpr const char* DLL_NAME = "VaaniAPO.dll";
 constexpr const wchar_t* disableAudioDgPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Audio";
 constexpr const wchar_t* disableAudioDgKey = L"DisableProtectedAudioDG";
 
+bool fxEnable = true;
+
 std::wstring s2ws(const std::string& str) {
     std::wstring temp;
     int wcharsNum = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
@@ -1061,10 +1063,28 @@ int Uninstall() {
     return 0;
 }
 
+
+bool SetApoProcessingState(bool bEnable) {
+    HKEY hKey;
+
+    // Open key with write permissions
+    LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, BACKUP_REGPATH, 0, KEY_SET_VALUE, &hKey);
+    if (result != ERROR_SUCCESS) {
+        std::wcout << "Vaani not installed. Please install Vaani before running this command." << std::endl;
+        return false;
+    }
+
+    DWORD dwValue = bEnable ? 1 : 0;
+    result = RegSetValueEx(hKey, L"FxEnable", 0, REG_DWORD, (const BYTE*)&dwValue, sizeof(dwValue));
+
+    RegCloseKey(hKey);
+    return (result == ERROR_SUCCESS);
+}
+
 // Application Entry //
 int main() {
     int choice;
-    std::cout << "\nVaani: RNNoise based Voice Clarity \n1) Install\t2) Uninstall" << std::endl;
+    std::cout << "\nVaani: RNNoise based Voice Clarity \n1) Install\t2) Uninstall\n3) Enable all effects\t4) Disable all effects" << std::endl;
     std::cin >> choice;
 
     switch (choice) {
@@ -1073,6 +1093,12 @@ int main() {
         break;
     case 2:
         Uninstall();
+        break;
+    case 3:
+        SetApoProcessingState(true);
+        break;
+    case 4:
+        SetApoProcessingState(false);
         break;
     default:
         CoUninitialize();
