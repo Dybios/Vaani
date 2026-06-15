@@ -1091,15 +1091,16 @@ int main() {
     switch (choice) {
     case 1:
         Install();
-        SetApoProcessingState(true);
         break;
     case 2:
         Uninstall();
         break;
     case 3:
+        std::cout << "This is a WIP feature and currently does not work." << std::endl;
         SetApoProcessingState(true);
         break;
     case 4:
+        std::cout << "This is a WIP feature and currently does not work." << std::endl;
         SetApoProcessingState(false);
         break;
     default:
